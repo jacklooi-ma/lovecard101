@@ -6,7 +6,7 @@ import React, { Component, useState } from "react";
 import { Container, Row, Col, Collapse, Button, CardBody, Card } from "reactstrap";
 import { FaRegDotCircle, FaUndoAlt } from "react-icons/fa";
 import LoveCard from '../component/LoveCard'
-import router, { Route } from 'next/router';
+import { withRouter } from 'next/router';
 import { Modal } from 'react-native-web';
 import Image from 'next/image'
 import card from "./card.json";
@@ -38,7 +38,7 @@ class Spread extends React.Component {
         })
         const AllResult = []
         var arr = card.cardData;
-        var cardNum = router.query.choose
+        var cardNum = this.props.router.query.choose
         for (var i = 0; i < cardNum; i++) {
             var index = Math.floor(Math.random() * arr.length);
             AllResult.push(arr[index]);
@@ -64,7 +64,7 @@ class Spread extends React.Component {
                     <Container >
                         <div className="DotStyle">
                             <div><FaRegDotCircle onClick={this.Spread} className="dotIcon" /></div>
-                            <div>您選擇抽{router.query.choose}張牌</div>
+                            <div>您選擇抽{this.props.router.query.choose}張牌</div>
                             <div>請冥想並按下按鈕...</div>
                         </div>
                         <Modal visible={showResult}>
@@ -94,4 +94,4 @@ class Spread extends React.Component {
 
 }
 
-export default Spread
+export default withRouter(Spread);
